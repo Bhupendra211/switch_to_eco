@@ -16,7 +16,7 @@ const Product = sequelize.define('products', {
     },
 
     product_description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
 
@@ -29,9 +29,19 @@ const Product = sequelize.define('products', {
         allowNull: false
     },
 
+    product_img: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
 }, {
     tableName: 'products',
 })
+
+
+Product.belongsTo(category, { foreignKey: 'category_id' });
+category.hasMany(Product, { foreignKey: 'id' });
+
 
 
 module.exports = Product;

@@ -4,7 +4,7 @@ const sequelize = require('../dbConnection.js');
 const product = require('./product.model');
 
 
-const RefferalModels = sequelize.define('images', {
+const RefferalModels = sequelize.define('referrals', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -29,9 +29,17 @@ const RefferalModels = sequelize.define('images', {
         },
         allowNull: false
     },
+
+    product_price: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
 }, {
     tableName: "refferals"
-})
+});
+
+RefferalModels.belongsTo(product, { foreignKey: 'product_id' });
+product.hasMany(RefferalModels, { foreignKey: 'id' });
 
 
 module.exports = RefferalModels;
